@@ -105,9 +105,11 @@ header {
 
 /* Logo larger max-width */
 .logo {
-  max-width: 700px;
+  max-width: 90vw;  /* max width is 90% of the viewport width */
+  width: 100%;      /* let it shrink below max-width */
   height: auto;
   margin-bottom: 1rem;
+  max-width: 700px; /* keep your current max so it doesn’t get too big on large screens */
 }
 
 header h1 {
