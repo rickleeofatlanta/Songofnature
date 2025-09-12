@@ -1,13 +1,19 @@
+/* -------------------------
+   styles.css (responsive, mobile-first)
+   Fixes: wider panels at ~720px, nav won't cover logo
+   ------------------------- */
+
 /* Color palette */
 :root {
   --pale-green: #a9d9ab;    /* subtle pale green background */
   --light-cream: #b3913f;   /* lighter cream wrapper */
-  --brown-dark: #6b4c3b;     /* dark brown (body text) */
-  --white: #ffffff;           /* white (page panels and nav text) */
-  --title-green: #4a7a35;    /* green for title text */
-  --leaf-green: #41bd48;     /* soft leaf green (nav background) */
-  --shadow: rgba(107, 76, 59, 0.3);
-  --Pale-brown: #f6f0a9;
+  --brown-dark: #6b4c3b;    /* dark brown (body text) */
+  --white: #ffffff;         /* white for wrapper/panels */
+  --title-green: #4a7a35;   /* green for title text */
+  --leaf-green: #41bd48;    /* soft leaf green (nav background) */
+  --shadow: rgba(107, 76, 59, 0.12);
+  --pale-brown: #f6f0a9;    /* parchment-ish panel */
+  --nav-height: 64px;       /* used when nav becomes fixed on wide screens */
 }
 
 /* Reset & base */
@@ -19,101 +25,110 @@
   color: var(--brown-dark);
 }
 
-body {
-  display: flex;
-  flex-direction: column; /* stack children vertically */
-  align-items: center;    /* center horizontally */
-  padding-top: 60px;      /* for fixed nav */
-  background-color: var(--pale-green);
-  min-height: 100vh;
-  margin: 0;
+html, body {
+  height: 100%;
 }
 
-/* Nav at top */
+body {
+  background-color: var(--pale-green);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  /* no top padding here — we only add it when nav is fixed on large screens */
+}
+
+/* -------------------------
+   Navigation (mobile-first)
+   ------------------------- */
 nav {
-  position: fixed;
-  top: 0;
+  position: static; /* NOT fixed on small screens to avoid covering header */
   width: 100%;
   background: var(--leaf-green);
-  box-shadow: 0 2px 5px var(--shadow);
+  box-shadow: 0 2px 6px var(--shadow);
   z-index: 1000;
 }
 
 nav ul {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;         /* allow links to wrap into multiple lines if needed */
   justify-content: center;
-  gap: 2.5rem;
-  padding: 1rem 0;
+  gap: 0.75rem;            /* compact gap on narrow screens */
+  padding: 0.6rem 0;       /* smaller vertical padding so it doesn't eat space */
+  margin: 0;
 }
 
 nav a {
   color: var(--white);
   text-decoration: none;
   font-weight: 600;
-  font-size: 1.1rem;
-  border-bottom: 3px solid transparent;
-  padding-bottom: 2px;
-  transition: border-color 0.3s ease;
+  font-size: 1rem;
+  padding: 0.35rem 0.6rem; /* smaller tap target on very small screens, still usable */
+  border-radius: 6px;
+  display: inline-block;
+  transition: background-color 0.18s ease, transform 0.08s ease;
 }
 
 nav a:hover,
 nav a:focus {
-  border-color: var(--white);
+  background-color: rgba(255,255,255,0.08);
+  transform: translateY(-1px);
 }
 
-/* Wrapper around header and footer */
+/* -------------------------
+   Content wrapper (site card)
+   ------------------------- */
+/* keep wrapper width fluid but bounded */
 .content-wrapper {
   background-color: var(--white);
-  width: 90vw;
-  max-width: 1200px;
+  width: min(1200px, 95vw);
   border-radius: 20px;
-  padding: 2rem 2rem 4rem 2rem;
-  box-shadow: 0 8px 20px rgba(107, 76, 59, 0.1);
+  padding: 1.5rem 1.5rem 3rem 1.5rem;
+  box-shadow: 0 8px 20px rgba(107, 76, 59, 0.08);
   display: flex;
   flex-direction: column;
-  align-items: center;  /* centers children horizontally */
-  margin: 0 auto; /* horizontally center wrapper */
-  text-align: center; /* center text inside */
+  align-items: center;
+  text-align: center;
+  margin-top: 1rem; /* slight separation from nav */
 }
 
-/* New wrapper around main content only */
+/* main-wrapper (inner cream band) */
 .main-wrapper {
   background-color: var(--light-cream);
-  width: 88%;
-  max-width: 1100px;
-  margin: 0 auto 2rem auto;
-  border-radius: 20px;
-  padding: 2rem 2rem 3rem 2rem;
-  box-shadow: 0 8px 20px rgba(107, 76, 59, 0.1);
+  width: min(1100px, 92%);
+  margin: 1.25rem auto 2rem auto;
+  border-radius: 16px;
+  padding: 1.25rem 1.25rem 2rem 1.25rem;
+  box-shadow: 0 6px 18px rgba(107, 76, 59, 0.07);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Header centered inside wrapper */
+/* -------------------------
+   Header / logo
+   ------------------------- */
 header {
-  margin: 1rem auto 3rem auto; /* slightly less space at the top */
-  width: auto;
-  border-radius: 15px;
-  padding: 2rem 2rem 3rem 2rem;
+  margin: 0.75rem auto 1.25rem auto;
+  width: 100%;
+  padding: 1rem 0 1.25rem 0;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Logo larger max-width */
 .logo {
-  max-width: 90vw;  /* max width is 90% of the viewport width */
-  width: 100%;      /* let it shrink below max-width */
+  width: 100%;
+  max-width: 700px;   /* controls how big it gets on wide screens */
   height: auto;
-  margin-bottom: 1rem;
-  max-width: 700px; /* keep your current max so it doesn’t get too big on large screens */
+  margin-bottom: 0.85rem;
 }
 
 header h1 {
-  font-size: 2.75rem;
+  font-size: 2.1rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
   color: var(--title-green);
@@ -121,52 +136,54 @@ header h1 {
 
 .subtitle {
   font-style: italic;
-  font-size: 1.15rem;
+  font-size: 1rem;
   color: var(--brown-dark);
 }
 
-/* Main content with page panels */
+/* -------------------------
+   Main / page panels
+   ------------------------- */
+/* Main layout: panels are full-width within the wrapper but capped by max-width */
 main {
   width: 100%;
-  overflow-y: auto;
-  padding: 0 1rem 3rem;
+  padding: 0 1rem 2rem;
   scroll-behavior: smooth;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: none;
 }
 
-/* The “page panels” — wider, centered, white background */
+/* Page panel: fluid and centered; will expand on 720+ so not narrow */
 .page-panel {
-  background: var(--Pale-brown);
-  margin-bottom: 2rem;
-  padding: 2rem 2.5rem;
-  border-radius: 20px;
+  background: var(--pale-brown);
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
   box-shadow: 0 4px 12px var(--shadow);
   color: var(--brown-dark);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.5;
-  width: 85%;
-  max-width: none;
-  min-width: 300px;
+  width: 100%;
+  max-width: 1000px;   /* cap — this keeps very large screens from making it huge */
   text-align: center;
 }
 
+/* Panel headings */
 .page-panel h2 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   margin-bottom: 0.75rem;
 }
 
-/* Footer */
+/* Footer (outside the white card) */
 footer {
   color: var(--brown-dark);
   font-size: 0.9rem;
-  margin-bottom: 1.5rem;
   text-align: center;
   width: 100%;
+  margin: 1.5rem 0 2rem 0;
 }
 
+/* small utility to hide the visible H1 while leaving it accessible */
 .visually-hidden {
   position: absolute;
   left: -9999px;
@@ -174,4 +191,244 @@ footer {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+/* -------------------------
+   Larger screen adjustments
+   ------------------------- */
+
+/* Medium screens: make panels wider (this targets ~720px and up implicitly) */
+@media (min-width: 720px) {
+  .content-wrapper {
+    width: min(1200px, 92vw);
+    padding: 2rem;
+  }
+  .main-wrapper {
+    width: min(1100px, 88%);
+    padding: 1.5rem 2rem;
+  }
+  .page-panel {
+    padding: 1.5rem 2rem;
+    max-width: 1100px; /* allow a bit more width on medium displays */
+    font-size: 1.08rem;
+  }
+  header h1 {
+    font-size: 2.4rem;
+  }
+  .subtitle {
+    font-size: 1.12rem;
+  }
+}
+
+/* Large screens: fix nav on top (so it behaves like the original on desktops),
+   and reserve padding for it so it won't overlap the header */
+@media (min-width: 992px) {
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+  }
+
+  /* give the page top padding equal to nav height so content isn't hidden */
+  body {
+    padding-top: var(--nav-height);
+  }
+
+  nav ul {
+    gap: 2.5rem;
+    padding: 0;
+  }
+
+  nav a {
+    font-size: 1.05rem;
+    padding: 0.45rem 0.85rem;
+  }
+
+  .content-wrapper {
+    margin-top: 1rem; /* keep a little breathing room below the fixed nav */
+  }
+}
+
+/* Narrow phones: reduce spacing/padding further so nothing clumps */
+@media (max-width: 420px) {
+  nav ul {
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+
+  .page-panel {
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  .logo {
+    max-width: 92%;
+  }
+}
+
+/* -----------------------------
+   Games page tweaks (scoped to .games-page)
+   ----------------------------- */
+.games-page .page-panel {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-direction: row-reverse; /* image on the right */
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  background: var(--pale-brown);
+  box-shadow: 0 6px 18px rgba(107,76,59,0.06);
+}
+
+.games-page .page-panel > img {
+  width: 200px;
+  max-width: 40%;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  object-fit: contain;
+}
+
+.games-page .page-panel > div {
+  flex: 1 1 0%;
+  text-align: left;
+  min-width: 0;
+}
+
+.games-page .page-panel h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+  color: var(--title-green);
+}
+
+.games-page .page-panel p {
+  margin: 0 0 1rem 0;
+  line-height: 1.55;
+  color: var(--brown-dark);
+  font-size: 1rem;
+}
+
+/* Stack panels for small screens: image between heading and text */
+
+/* === Force stacked layout on small screens (override inline styles) === */
+@media (max-width: 720px) {
+  .games-page .page-panel {
+    flex-direction: column !important;   /* stack vertically */
+    align-items: center !important;
+    text-align: center !important;
+    padding: 1rem !important;
+  }
+
+  /* Heading stays first */
+  .games-page .page-panel > h2 {
+    order: 0 !important;
+    width: 100% !important;
+    margin-bottom: 0.75rem !important;
+    text-align: center !important;
+  }
+
+  /* Image placed AFTER the heading, BEFORE the text */
+  .games-page .page-panel > img {
+    order: 1 !important;
+    width: 70% !important;
+    max-width: 320px !important;
+    margin: 0.5rem 0 1rem 0 !important;
+    flex: none !important; /* prevents it from squeezing the text column */
+  }
+
+  /* Text/content last, full width */
+  .games-page .page-panel > div {
+    order: 2 !important;
+    width: 100% !important;
+    flex: none !important;
+    text-align: center !important;
+    min-width: 0 !important;
+  }
+
+  /* ensure text lines center */
+  .games-page .page-panel h2,
+  .games-page .page-panel p {
+    text-align: center !important;
+  }
+}
+
+
+/* Slight adjustment for medium screens so cards don't look too compressed */
+@media (min-width: 721px) and (max-width: 991px) {
+  .page-panel > img { max-width: 35% !important; }
+  .page-panel { padding: 1.25rem 1.5rem !important; }
+}
+
+/* --- About page adjustments --- */
+.about-panel {
+  text-align: left;
+  width: 95%;          /* let it fill more of the wrapper */
+  max-width: 1000px;   /* wider on desktop, capped for readability */
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+/* About page heading */
+.about-panel h2 {
+  text-align: center;
+  margin-bottom: 1.25em;
+  font-size: 2rem;
+}
+
+/* Paragraph spacing */
+.about-panel p {
+  margin-bottom: 1.5em;
+}
+
+/* Responsive tweak: shrink font slightly on phones */
+@media (max-width: 600px) {
+  .about-panel {
+    width: 90%;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+/* Desktop nav fix: stick to top, centered horizontally */
+@media (min-width: 992px) {
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    display: flex;
+    justify-content: center; /* <-- centers the nav horizontally */
+    align-items: center;
+    background: var(--leaf-green);
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 1000;
+  }
+
+  nav ul {
+    gap: 2.5rem;
+    padding: 0;
+    flex-wrap: nowrap;
+  }
+
+  nav a {
+    font-size: 1.05rem;
+    padding: 0.45rem 0.85rem;
+  }
+
+  /* Reserve space for nav so content doesn't get hidden */
+  body {
+    padding-top: var(--nav-height);
+  }
 }
