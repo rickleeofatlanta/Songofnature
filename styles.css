@@ -439,3 +439,9 @@ footer {
     overflow-wrap: anywhere;     /* modern version for wide support */
     font-size: 1rem;             /* keeps font reasonable */
 }
+
+.donate-widget {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
