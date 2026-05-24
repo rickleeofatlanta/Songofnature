@@ -1,0 +1,208 @@
+/* =========================
+   Song of Nature Stories
+   Scoped magazine-style theme
+   ========================= */
+
+/* Palette (aligned with your main site) */
+:root {
+  --pale-green: #a9d9ab;
+  --light-cream: #b3913f;
+  --brown-dark: #6b4c3b;
+  --white: #ffffff;
+  --title-green: #4a7a35;
+  --leaf-green: #41bd48;
+  --shadow: rgba(107, 76, 59, 0.12);
+  --pale-brown: #f6f0a9;
+}
+
+/* Reset (kept minimal so it won't fight your main CSS) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Page background */
+body {
+  background: var(--pale-green);
+  color: var(--brown-dark);
+}
+
+/* =========================
+   NAV (light reuse of your style)
+   ========================= */
+nav {
+  width: 100%;
+  background: var(--leaf-green);
+  box-shadow: 0 2px 6px var(--shadow);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+nav a:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* =========================
+   HERO (magazine header feel)
+   ========================= */
+.hero {
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+  background: linear-gradient(135deg, #3f6b52, #2f4f3e);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* =========================
+   MAIN CONTAINER
+   ========================= */
+.container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* =========================
+   FEATURE CARDS (magazine blocks)
+   ========================= */
+.card {
+  display: flex;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  align-items: stretch;
+}
+
+.card.reverse {
+  flex-direction: row-reverse;
+}
+
+.card-img {
+  width: 40%;
+  object-fit: cover;
+  min-height: 260px;
+}
+
+.card-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card h2 {
+  color: var(--title-green);
+  font-size: 1.6rem;
+}
+
+.card p {
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+/* =========================
+   BUTTONS (consistent with your site feel)
+   ========================= */
+.btn {
+  display: inline-block;
+  background: var(--leaf-green);
+  color: white;
+  text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  width: fit-content;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  background: #2f8f38;
+  transform: translateY(-1px);
+}
+
+.btn.small {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+/* =========================
+   SUBMISSIONS BLOCK
+   ========================= */
+.submission {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.submission h2 {
+  color: var(--title-green);
+  margin-bottom: 0.5rem;
+}
+
+.submission p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: var(--brown-dark);
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+@media (max-width: 768px) {
+  .card,
+  .card.reverse {
+    flex-direction: column;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+}
